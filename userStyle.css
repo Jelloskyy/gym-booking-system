@@ -1,0 +1,229 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #e9e9eb;
+}
+
+nav ul{
+    margin: 0;
+    padding: 0;
+    padding-top: 30px;
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fcfbfb;    
+}
+
+nav li{
+    list-style: none;
+}
+
+nav li a{
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 20px;
+    color: #0c0c0c;
+    position: relative;
+    padding: 25px 0 25px 25px;
+
+}
+ nav ul li a:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background: #e3e9f7;
+    border-radius: 40px 0 0 40px;
+    z-index: -1;
+ }
+
+.wrapper{
+    margin-left: 260px;
+    padding: 40px;
+ }
+
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+ 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+ 
+.card-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+ 
+.card-header a {
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+}
+ 
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  gap: 12px;
+}
+ 
+.cal-icon {
+  width: 48px;
+  height: 48px;
+  border: 2.5px solid #9ca3af;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+ 
+.cal-top {
+  height: 12px;
+  background: #9ca3af;
+  position: relative;
+}
+ 
+.cal-top::before,
+.cal-top::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  width: 3px;
+  height: 10px;
+  background: #9ca3af;
+  border-radius: 2px;
+}
+ 
+.cal-top::before { left: 10px; }
+.cal-top::after  { right: 10px; }
+ 
+.cal-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 8px;
+}
+ 
+.cal-line {
+  height: 3px;
+  background: #d1d5db;
+  border-radius: 2px;
+}
+ 
+.cal-line.short { width: 60%; }
+ 
+.empty-state p {
+  font-size: 14px;
+  color: #6b7280;
+}
+ 
+.browse-btn {
+  background: #2563eb;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+ 
+
+.section{
+    display: grid;
+    place-items: center;
+    padding: 60px 0 40px;
+    text-align: center;
+}
+
+.box-area h2{
+    text-transform: uppercase;
+    font-size: 50px;
+}
+
+.box-area{
+    width: 75%;
+}
+
+.actions{
+margin-top: 20px;
+
+}
+
+.actions h2{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.qa-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.qa-card{
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.qa-icon{
+    margin-bottom: 10px;
+}
+
+.qa-icon svg{
+    width: 28px;
+    height: 28px;
+    stroke: #2563eb;
+}
+
+
+nav ul h2 {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 20px 0 4px 25px;
+  color: #111;
+}
+
+nav ul p{
+  padding: 20px 0 4px 25px;
+}
+
+.qa-card h3{
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.qa-card p{
+    font-size: 0.8rem;
+    color: #0a0a0a;
+    margin: 0;
+}
+
+.qa-icon i{
+    font-size: 28px;
+    color: #2563eb;
+}

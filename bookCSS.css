@@ -1,0 +1,120 @@
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #111;
+}
+ 
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+ 
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.2s;
+}
+ 
+.filter-btn.active,
+.filter-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+ 
+.class-count {
+  margin-left: auto;
+  font-size: 13px;
+  color: #6b7280;
+}
+ 
+
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+ 
+
+.class-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+ 
+.card-content {
+  padding: 20px;
+}
+ 
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+ 
+.badge-cardio   { background: #eff6ff; color: #2563eb; }
+.badge-wellness { background: #f0fdf4; color: #16a34a; }
+.badge-strength { background: #fef3c7; color: #d97706; }
+ 
+
+.class-name {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #111;
+}
+ 
+.trainer-name {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+ 
+.class-desc {
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+ 
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 6px;
+}
+ 
+.info-row .icon { font-size: 14px; }
+ 
+
+.book-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 16px;
+  transition: opacity 0.2s;
+}

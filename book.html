@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <link rel="stylesheet" href="bookCSS.css">
+    <link rel="stylesheet" href="userStyle.css">
+    <script src="bookJS.js"></script>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="User.html"> &nbsp; Dashboard</a></li>
+                <li><a href="book.html">&nbsp; Book Classes</a></li>
+                <li><a href="#">&nbsp; My Membership</a></li>
+            </ul>
+        </nav>
+            <div class="wrapper">
+ 
+    <h1 class="page-title">Book Classes</h1>
+ 
+    
+    <div class="wrapper">
+    <h1 class="page-title">Book Classes</h1>
+ 
+    <!-- Filter tabs -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+      <button class="filter-btn" onclick="filterCards('cardio', this)">Cardio</button>
+      <button class="filter-btn" onclick="filterCards('wellness', this)">Wellness</button>
+      <button class="filter-btn" onclick="filterCards('strength', this)">Strength</button>
+      <span class="class-count">Loading...</span>
+    </div>
+ 
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+ 
+    <!-- Cards injected by JS -->
+    <div class="classes-grid" id="classGrid">
+      <p style="color:#6b7280; font-size:14px;">Loading classes...</p>
+    </div>
+  </div>
+ 
+    </div>
+  </div>
+    </body>
+</html>

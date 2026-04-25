@@ -1,0 +1,26 @@
+main{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    row-gap: 15px;
+    column-gap: 15px;
+}
+
+.grid1{
+    border: 10px;
+    border-style: solid;
+    border-color: forestgreen;
+}
+
+
+.grid2{
+    border: 10px;
+    border-style: inset;
+    border-color: cornflowerblue;
+}
+
+.grid3{
+    border: 10px;
+    border-style: double;
+    border-color: crimson;
+}
+
