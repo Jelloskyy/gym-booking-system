@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.env
+flags.html
+jsTest.html
+test1.js
+testJs.js
+wwb.css
+try.css
+style.css
+style2.css
+styleTp.css
+html
