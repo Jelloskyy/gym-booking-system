@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitnessPro — Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="admin.js"></script>
+  <style>
+    
+   
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+ 
+   
+    nav {
+      width: 260px;
+      background: #fff;
+      border-right: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 0 20px;
+      flex-shrink: 0;
+      box-shadow: 2px 0 8px rgba(0,0,0,.04);
+    }
+ 
+    nav ul {
+      list-style: none;
+      padding: 0 16px;
+    }
+ 
+    nav ul h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 2px;
+      letter-spacing: -0.5px;
+    }
+ 
+    nav ul p {
+      font-size: 0.72rem;
+      color: #6b7280;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+ 
+    .nav-section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      padding: 0 8px;
+      margin: 12px 0 4px;
+    }
+ 
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #6b7280;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .15s;
+      margin-bottom: 2px;
+    }
+ 
+    .nav-link i { width: 16px; text-align: center; font-size: 0.85rem; }
+    .nav-link:hover { background: #f3f4f6; color: #1a1a2e; }
+    .nav-link.active { background: #eff6ff; color: #2563eb; }
+    .nav-link.active i { color: #2563eb; }
+ 
+    .nav-footer {
+      margin-top: auto;
+      padding: 16px 24px 0;
+      border-top: 1px solid #f3f4f6;
+    }
+ 
+    .admin-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+    }
+ 
+    .av {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.78rem;
+      flex-shrink: 0;
+    }
+ 
+    .av-name { font-weight: 700; color: #1a1a2e; }
+    .av-role { font-size: 0.68rem; color: #9ca3af; }
+ 
+    
+    .wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+ 
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+ 
+    .topbar-left h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      letter-spacing: -0.4px;
+    }
+ 
+    .topbar-left p { font-size: 0.78rem; color: #9ca3af; margin-top: 1px; }
+ 
+    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+ 
+   
+    .btn {
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all .15s;
+    }
+ 
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-outline { background: #fff; color: #374151; border: 1.5px solid #e5e7eb; }
+    .btn-outline:hover { border-color: #2563eb; color: #2563eb; }
+    .btn-danger { background: #fee2e2; color: #dc2626; border: none; }
+    .btn-danger:hover { background: #fecaca; }
+    .btn-success { background: #d1fae5; color: #059669; border: none; }
+    .btn-success:hover { background: #a7f3d0; }
+    .btn-sm { padding: 5px 12px; font-size: 0.75rem; }
+ 
+   
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
+    }
+ 
+    .content::-webkit-scrollbar { width: 5px; }
+    .content::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
+ 
+    
+    .panel { display: none; }
+    .panel.active { display: block; }
+ 
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+ 
+    .stat-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+ 
+    .stat-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+ 
+    .stat-icon.blue { background: #eff6ff; color: #2563eb; }
+    .stat-icon.green { background: #f0fdf4; color: #059669; }
+    .stat-icon.amber { background: #fffbeb; color: #d97706; }
+    .stat-icon.red { background: #fef2f2; color: #dc2626; }
+ 
+    .stat-label { font-size: 0.72rem; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .stat-value { font-size: 1.7rem; font-weight: 800; color: #1a1a2e; line-height: 1.1; margin: 2px 0; }
+    .stat-sub { font-size: 0.72rem; color: #6b7280; }
+ 
+    
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+ 
+    .card-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+ 
+    .card-title { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; }
+    .card-body { padding: 20px; }
+ 
+    
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+ 
+    th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #9ca3af;
+      border-bottom: 1px solid #f3f4f6;
+    }
+ 
+    td {
+      padding: 13px 16px;
+      border-bottom: 1px solid #f9fafb;
+      color: #374151;
+      vertical-align: middle;
+    }
+ 
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #fafafa; }
+ 
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+ 
+    .badge-green { background: #d1fae5; color: #059669; }
+    .badge-blue { background: #dbeafe; color: #2563eb; }
+    .badge-amber { background: #fef3c7; color: #d97706; }
+    .badge-red { background: #fee2e2; color: #dc2626; }
+    .badge-gray { background: #f3f4f6; color: #6b7280; }
+ 
+   
+    .user-cell { display: flex; align-items: center; gap: 10px; }
+ 
+    .u-av {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800;
+      flex-shrink: 0;
+      color: #fff;
+    }
+ 
+    .u-name { font-weight: 600; color: #1a1a2e; font-size: 0.85rem; }
+    .u-email { font-size: 0.72rem; color: #9ca3af; }
+ 
+    .action-btns { display: flex; gap: 6px; }
+ 
+    
+    .search-wrap { position: relative; margin-bottom: 16px; }
+    .search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.8rem; }
+ 
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      color: #1a1a2e;
+      background: #fff;
+      transition: border-color .15s, box-shadow .15s;
+      outline: none;
+    }
+ 
+    .search-wrap input { padding-left: 36px; }
+ 
+    input:focus, select:focus, textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+    }
+ 
+   
+    .sch-wrap { overflow-x: auto; }
+ 
+    .sch-grid {
+      display: grid;
+      grid-template-columns: 70px repeat(7, 1fr);
+      min-width: 680px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+ 
+    .sch-cell {
+      border-right: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 8px;
+      min-height: 54px;
+    }
+ 
+    .sch-cell:nth-child(8n) { border-right: none; }
+ 
+    .sch-head {
+      background: #f9fafb;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 4px;
+      min-height: unset;
+    }
+ 
+    .sch-time {
+      background: #f9fafb;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+ 
+    .class-pill {
+      border-radius: 6px;
+      padding: 4px 7px;
+      font-size: 0.67rem;
+      margin-bottom: 3px;
+      cursor: pointer;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+ 
+    .class-pill.blue { background: #dbeafe; color: #1d4ed8; border-left: 2px solid #2563eb; }
+    .class-pill.green { background: #d1fae5; color: #065f46; border-left: 2px solid #059669; }
+    .class-pill.amber { background: #fef3c7; color: #92400e; border-left: 2px solid #d97706; }
+    .class-pill.purple { background: #ede9fe; color: #4c1d95; border-left: 2px solid #7c3aed; }
+    .class-pill.red { background: #fee2e2; color: #991b1b; border-left: 2px solid #dc2626; }
+ 
+    
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(17,24,39,.45);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+ 
+    .modal-overlay.open { display: flex; }
+ 
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      width: 500px;
+      max-width: 95vw;
+      max-height: 92vh;
+      overflow-y: auto;
+      animation: fadeUp .2s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+ 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+ 
+    .modal-header {
+      padding: 20px 22px 14px;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+ 
+    .modal-title { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
+ 
+    .close-btn {
+      background: #f3f4f6; border: none; border-radius: 50%;
+      width: 28px; height: 28px;
+      cursor: pointer; font-size: 1rem; color: #6b7280;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .close-btn:hover { background: #e5e7eb; color: #1a1a2e; }
+ 
+    .modal-body { padding: 20px 22px; }
+    .modal-footer { padding: 14px 22px; border-top: 1px solid #f3f4f6; display: flex; justify-content: flex-end; gap: 8px; }
+ 
+    .form-group { margin-bottom: 14px; }
+ 
+    label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 5px;
+    }
+ 
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+ 
+    
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+ 
+   
+    .toast {
+      position: fixed; bottom: 22px; right: 22px;
+      background: #1a1a2e; color: #fff;
+      padding: 12px 18px; border-radius: 10px;
+      font-size: 0.82rem; font-weight: 600;
+      display: none; z-index: 9999;
+      border-left: 4px solid #2563eb;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      animation: slideR .25s ease;
+      max-width: 280px;
+    }
+ 
+    .toast.show { display: block; }
+ 
+    @keyframes slideR {
+      from { transform: translateX(40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+ 
+    
+    .day-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+ 
+    .day-chk {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.8rem; color: #374151; font-weight: 600;
+      cursor: pointer;
+      text-transform: none; letter-spacing: 0;
+    }
+ 
+    .day-chk input { width: auto; padding: 0; }
+ 
+    
+    .plan-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px; padding: 20px;
+    }
+ 
+    .plan-card h3 { font-size: 1rem; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; }
+    .plan-card .price { font-size: 1.5rem; font-weight: 800; color: #2563eb; margin-bottom: 10px; }
+    .plan-card ul { list-style: none; font-size: 0.82rem; color: #374151; line-height: 2; }
+    .plan-card .sub-count { font-size: 0.78rem; color: #9ca3af; margin-top: 12px; padding-top: 10px; border-top: 1px solid #f3f4f6; }
+  </style>
+</head>
+<body>
+ 
+
+<nav>
+  <ul>
+    <li>
+      <h2><i class="fa-solid fa-dumbbell"></i> FitnessPro</h2>
+      <p>Admin Portal</p>
+    </li>
+  </ul>
+ 
+  <div class="nav-section-label">Overview</div>
+  <ul>
+    <li><a class="nav-link active" onclick="window.showPanel('dashboard',this)"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+  </ul>
+ 
+  <div class="nav-section-label">Accounts</div>
+  <ul>
+    <li><a class="nav-link" onclick="window.showPanel('members',this)"><i class="fa-solid fa-users"></i> Members</a></li>
+    <li><a class="nav-link" onclick="window.showPanel('trainers',this)"><i class="fa-solid fa-person-running"></i> Trainers</a></li>
+  </ul>
+ 
+  <div class="nav-section-label">Management</div>
+  <ul>
+    <li><a class="nav-link" onclick="window.showPanel('schedule',this)"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+    <li><a class="nav-link" onclick="window.showPanel('memberships',this)"><i class="fa-solid fa-id-card"></i> Memberships</a></li>
+    
+  </ul>
+ 
+  <ul style="margin-top:auto">
+    <li><a class="nav-link" href="User.html"><i class="fa-solid fa-user"></i> User Profile</a></li>
+  </ul>
+ 
+  <div class="nav-footer">
+    <div class="admin-chip">
+      <div class="av">AD</div>
+      <div>
+        <div class="av-name">Admin</div>
+        <div class="av-role">Super Admin</div>
+      </div>
+    </div>
+  </div>
+</nav>
+ 
+
+<div class="wrapper">
+ 
+  
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1 id="pageTitle">Dashboard</h1>
+      <p id="pageSubtitle">Welcome back, Admin</p>
+    </div>
+    <div class="topbar-actions" id="topbarActions">
+    
+    </div>
+  </div>
+ 
+  <div class="content">
+ 
+    
+    <div class="panel active" id="panel-dashboard">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+          <div>
+            <div class="stat-label">Members</div>
+            <div class="stat-value">0</div>
+            <div class="stat-sub">↑ 12 this month</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-person-running"></i></div>
+          <div>
+            <div class="stat-label">Trainers</div>
+            <div class="stat-value">0</div>
+            <div class="stat-sub">0</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon amber"><i class="fa-solid fa-calendar-check"></i></div>
+          <div>
+            <div class="stat-label">Classes / week</div>
+            <div class="stat-value">0</div>
+            <div class="stat-sub">↑ 4 vs last week</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div>
+            <div class="stat-label">Expiring soon</div>
+            <div class="stat-value">0</div>
+            <div class="stat-sub">within 7 days</div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Recent Registrations</span>
+            <span class="badge badge-blue">This week</span>
+          </div>
+          <table>
+            <thead><tr><th>Member</th><th>Plan</th><th>Status</th></tr></thead>
+            
+          </table>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Today's Classes</span>
+            <span class="badge badge-green">Live</span>
+          </div>
+          <table>
+            <thead><tr><th>Class</th><th>Trainer</th><th>Slots</th></tr></thead>
+            
+          </table>
+        </div>
+      </div>
+    </div>
+ 
+   
+    <div class="panel" id="panel-members">
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search members by name or email…" oninput="filterTable('membersTbody', this.value)">
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Member Accounts</span>
+          <span class="badge badge-blue" id="memberCount">0</span>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="panel" id="panel-trainers">
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search trainers…" oninput="filterTable('trainersTbody', this.value)">
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Trainer Accounts</span>
+          <span class="badge badge-blue" id="trainerCount">0</span>
+        </div>            
+      </div>
+    </div>
+ 
+    <div class="panel" id="panel-schedule">
+      
+      <div class="card" style="margin-bottom:18px">
+        <div class="card-header">
+          <span class="card-title">Weekly Class Grid</span>
+          <span style="font-size:.78rem;color:#9ca3af"></span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="sch-wrap" style="padding:16px">
+            <div class="sch-grid">
+              
+              <div class="sch-cell sch-head"></div>
+              <div class="sch-cell sch-head">MON</div>
+              <div class="sch-cell sch-head">TUE</div>
+              <div class="sch-cell sch-head">WED</div>
+              <div class="sch-cell sch-head">THU</div>
+              <div class="sch-cell sch-head">FRI</div>
+              <div class="sch-cell sch-head">SAT</div>
+              <div class="sch-cell sch-head">SUN</div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+     
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">All Scheduled Classes</span>
+          <span class="badge badge-blue" id="classCount">0 classes</span>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Class</th><th>Trainer</th><th>Days</th><th>Time</th><th>Capacity</th><th>Actions</th></tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+ 
+    
+    <div class="panel" id="panel-memberships">
+      <div class="two-col" style="margin-bottom:18px">
+        <div class="plan-card">
+          <h3>Basic Plan</h3>
+          <div class="price">₱999<span style="font-size:.9rem;color:#9ca3af;font-weight:500">/mo</span></div>
+          <ul>
+            <li>✅ Gym floor access</li>
+            <li>✅ 4 group classes/month</li>
+            <li>✅ Locker use</li>
+            <li>❌ Personal trainer</li>
+          </ul>
+          <div class="sub-count"><b>0</b> active subscribers</div>
+        </div>
+        <div class="plan-card" style="border-color:#2563eb">
+          <h3>Premium Plan</h3>
+          <div class="price">₱1,999<span style="font-size:.9rem;color:#9ca3af;font-weight:500">/mo</span></div>
+          <ul>
+            <li>✅ Gym floor access</li>
+            <li>✅ Unlimited group classes</li>
+            <li>✅ Locker use</li>
+            <li>✅ 2 personal trainer sessions/mo</li>
+          </ul>
+          <div class="sub-count"><b>0</b> active subscribers</div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="modal-overlay" id="memberModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="memberModalTitle">Add Member</div>
+      <button class="close-btn" onclick="closeModal('memberModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" id="mFN" placeholder=""></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="mLN" placeholder=""></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" id="mEmail" placeholder=""></div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="mPhone" placeholder=""></div>
+      <div class="form-row">
+        <div class="form-group"><label>Plan</label>
+          <select id="mPlan"><option>Basic</option><option>Premium</option></select>
+        </div>
+        <div class="form-group"><label>Status</label>
+          <select id="mStatus"><option>Active</option><option>Pending</option><option>Expired</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('memberModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveMember()">Save Member</button>
+    </div>
+  </div>
+</div>
+ 
+
+<div class="modal-overlay" id="trainerModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="trainerModalTitle">Add Trainer</div>
+      <button class="close-btn" onclick="closeModal('trainerModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" id="tFN" placeholder=""></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="tLN" placeholder=""></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" id="tEmail" placeholder=""></div>
+      <div class="form-group"><label>Specialty</label><input type="text" id="tSpec" placeholder=""></div>
+      <div class="form-row">
+        <div class="form-group"><label>Classes / Week</label><input type="number" id="tClasses" placeholder="10" min="1"></div>
+        <div class="form-group"><label>Status</label>
+          <select id="tStatus"><option>Active</option><option>On Leave</option><option>Inactive</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('trainerModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTrainer()">Save Trainer</button>
+    </div>
+  </div>
+</div>
+ 
+
+<div class="modal-overlay" id="classModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="classModalTitle">Add Class</div>
+      <button class="close-btn" onclick="closeModal('classModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Class Name</label><input type="text" id="cName" placeholder=""></div>
+      <div class="form-group"><label>Trainer</label>
+        <select id="cTrainer">
+          
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Days</label>
+        <div class="day-row">
+          <label class="day-chk"><input type="checkbox" id="dMon"> Mon</label>
+          <label class="day-chk"><input type="checkbox" id="dTue"> Tue</label>
+          <label class="day-chk"><input type="checkbox" id="dWed"> Wed</label>
+          <label class="day-chk"><input type="checkbox" id="dThu"> Thu</label>
+          <label class="day-chk"><input type="checkbox" id="dFri"> Fri</label>
+          <label class="day-chk"><input type="checkbox" id="dSat"> Sat</label>
+          <label class="day-chk"><input type="checkbox" id="dSun"> Sun</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Time</label><input type="time" id="cTime"></div>
+        <div class="form-group"><label>Capacity</label><input type="number" id="cCap" placeholder="15" min="1" max="100"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('classModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveClass()">Save Class</button>
+    </div>
+  </div>
+</div>
+ 
+<div class="toast" id="toast"></div>
+ 
+  </div>
+</div>
+</body>
+</html>
