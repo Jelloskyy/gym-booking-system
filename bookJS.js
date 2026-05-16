@@ -6,7 +6,6 @@ const API        = "http://localhost:5000/api";
       try {
         const res      = await fetch(`${API}/classes`);
         const classes  = await res.json();
- 
         const bRes     = await fetch(`${API}/bookings/${USER_EMAIL}`);
         const bookings = await bRes.json();
         const bookedIds = bookings.map(b => b.class_id);

@@ -11,10 +11,9 @@
         <nav>
             <ul>
                 <h2><i class="fa-solid fa-dumbbell"></i>FitnessPro</h2>
-                <p>Member Portal</p>
                 <li><a href="User.html"> &nbsp; Dashboard</a></li>
                 <li><a href="book.html">&nbsp; Book Classes</a></li>
-                <li><a href="#">&nbsp; My Membership</a></li>
+                <li><a href="Member.html">&nbsp; My Membership</a></li>
             </ul>
         </nav>
             <div class="wrapper">
@@ -34,13 +33,9 @@
             <section class="actions">
                 <h2>Quick Actions</h2>
 
-                <div class="qa-grid">
-                    
-
-                    
-
-
-                    <div class="qa-card">
+                <div class="qa-grid" >
+                
+                    <div class="qa-card" onclick="window.location.href='book.html'">
                     <div class="qa-icon">
                     <i class="fa-regular fa-calendar"></i>
                     </div>
@@ -48,7 +43,7 @@
                     <p >Reserve your spot in upcoming class</p>
                     </div>
 
-                    <div class="qa-card">
+                    <div class="qa-card" onclick="window.location.href='Member.html'">
                     <div class="qa-icon">
                     <i class="fa-regular fa-user"></i>
                     </div>
@@ -56,18 +51,10 @@
                     <p>View your membership</p>
                     </div>
 
-                    <div class="qa-card">
-                    <div class="qa-icon">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                    </div>
-                    <h3>Upgrade Plan</h3>
-                    <p>Get more benefits</p>
-                    </div>
-
                 </div>
             </section>
-
         </div>
+
 
         <script>
     const API        = "http://localhost:5000/api";
@@ -79,7 +66,7 @@
         const res      = await fetch(`${API}/bookings/${USER_EMAIL}`);
         const bookings = await res.json();
  
-        // Only show confirmed bookings
+        
         const confirmed = bookings.filter(b => b.status === 'confirmed');
  
         if (confirmed.length === 0) {
@@ -139,9 +126,6 @@
  
     loadUpcoming();
   </script>
-
-
-
-
+  
     </body>
 </html>

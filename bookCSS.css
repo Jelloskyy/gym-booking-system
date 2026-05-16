@@ -101,6 +101,25 @@
   color: #374151;
   margin-bottom: 6px;
 }
+
+nav ul h2 {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 20px 0 4px 25px;
+  color: #111;
+}
+
+nav ul{
+    margin: 0;
+    padding: 0;
+    padding-top: 30px;
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fcfbfb;    
+}
  
 .info-row .icon { font-size: 14px; }
  
